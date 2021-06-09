@@ -1,0 +1,10 @@
+@charset "UTF-8";
+// $header-height: 80;
+// $app-bg:#000;
+// $form-ctrl-bg: #1c1c1c;
+// $grid-count: 24;
+// $grid-distance: 15;
+// $product-box-bg: #191919; //产品详情 顶部左侧背景颜色
+@function toRem($px) {
+  @return #{round($px * 25 * 1000 / 1920)/1000}rem;
+}
