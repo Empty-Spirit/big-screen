@@ -1,4 +1,4 @@
-@import "rem.scss";
+// @import "rem.scss";
 * {
   margin: 0;
   padding: 0;
@@ -6,11 +6,11 @@
   -webkit-user-drag: none;
 }
 html {
-  height: 100%;
-  overflow: hidden;
+  // height: 100%;
+  // overflow: hidden;
 }
 body {
-  font-size: toRem(18);
+  font-size: toRem(18) !important;
   font-family: "Segoe UI", "FZLTCHK", "Microsoft YaHei", "Microsoft YaHei UI", "Times New Roman", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,7 +18,7 @@ body {
   height: 100%;
   // background: $app-bg;
   color: #fff;
-  overflow: hidden;
+  // overflow: hidden;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
