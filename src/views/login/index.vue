@@ -2,54 +2,56 @@
 <template>
   <div class='login'>
     <div class='login-content'>
-      <div class='login-left'>
-        <div class='login-title'>
-          欢迎您的登录
-        </div>
-        <el-form
-          :model="form"
-          ref="form"
-          :rules='rules'
-          class="login_form"
-        >
-          <el-form-item
-            label=""
-            prop="user_name"
-            class='user_name'
-            :rules="[
+      <div class='left-container'>
+        <div class='login-left'>
+          <div class='login-title'>
+            欢迎您的登录
+          </div>
+          <el-form
+            :model="form"
+            ref="form"
+            :rules='rules'
+            class="login_form"
+          >
+            <el-form-item
+              label=""
+              prop="user_name"
+              class='user_name'
+              :rules="[
           {required:true,message:'请输入用户名',trigger:'blur'}
         ]"
-          >
-            <el-input
-              type="text"
-              v-model.number="form.user_name"
-              :maxlength='5'
-              clearable
-              placeholder='用户名'
-            ></el-input>
-          </el-form-item>
-          <el-form-item
-            prop="user_pwd"
-            :rules="[
+            >
+              <el-input
+                type="text"
+                v-model.number="form.user_name"
+                :maxlength='5'
+                clearable
+                placeholder='用户名'
+              ></el-input>
+            </el-form-item>
+            <el-form-item
+              prop="user_pwd"
+              :rules="[
           {required:true,message:'请输入密码'}
         ]"
-          >
-            <el-input
-              type="password"
-              v-model.number="form.user_pwd"
-              :maxlength='11'
-              placeholder='密码'
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              class='submit'
-              @click="submitForm('form')"
-            >登录</el-button>
-          </el-form-item>
-        </el-form>
+            >
+              <el-input
+                type="password"
+                v-model.number="form.user_pwd"
+                :maxlength='11'
+                placeholder='密码'
+                clearable
+              ></el-input>
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                type="primary"
+                class='submit'
+                @click="submitForm('form')"
+              >登录</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
       <div class='login-right'>
         <!--流星-->
@@ -59,6 +61,12 @@
         <div class="liuxing liuxing4 liuxingFla4"></div>
         控制系统
       </div>
+    </div>
+
+    <!-- 认证中 -->
+    <div class="authent">
+      <img src="./../../assets/login/puff.svg">
+      <p>认证中...</p>
     </div>
     <img
       class='login_footer'
@@ -84,7 +92,11 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          // alert('submit!')
+          const _login = document.getElementsByClassName('login-left')[0]
+          const _authent = document.getElementsByClassName('authent')[0]
+          _login.classList.add('login_left_leave')
+          _authent.classList.add('authent_leave')
         } else {
           console.log('error submit!!')
           return false
@@ -110,8 +122,40 @@ export default {
     height: toRem(40);
   }
   .login-content {
-    box-shadow: 0 0 toRem(10) #575b5e;
+    // box-shadow: 0 0 toRem(10) #575b5e;
     z-index: 2;
+  }
+  .left-container {
+    display: inline-block;
+    vertical-align: top;
+  }
+  .authent {
+    background: #35394a;
+    display: none;
+    position: fixed;
+    width: toRem(200);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 20px 0;
+    height: 105px;
+    z-index: 2;
+    margin-left: toRem(-800);
+  }
+  .authent_leave {
+    display: inline-block;
+    animation: authent_leaves 0.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+  @keyframes authent_leaves {
+    0% {
+      margin-left: toRem(-800);
+    }
+    100% {
+      margin-left: toRem(-400);
+    }
   }
   .login-left {
     display: inline-block;
@@ -119,7 +163,7 @@ export default {
     height: toRem(550);
     background: #fff;
     padding: toRem(80) toRem(40);
-    vertical-align: top;
+    position: relative;
     .login-title {
       color: #407cd5;
       margin-bottom: toRem(70);
@@ -139,13 +183,37 @@ export default {
       background: #1e9fff;
     }
   }
+
+  .login_left_leave {
+    animation: login_leave 1.5s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    opacity: 0.6 !important;
+    filter: blur(1px);
+    box-shadow: 0px 20px 30px 3px rgba(0, 0, 0, 0.55);
+  }
+  @keyframes login_leave {
+    0% {
+      left: 0px;
+      top: 0px;
+      transform: scale(1);
+    }
+    50% {
+      left: -40px;
+      transform: scale(0.8, 0.5);
+    }
+    100% {
+      left: -150px;
+      transform: scale(0.8, 0.5);
+    }
+  }
   .login-right {
     display: inline-block;
     color: #407cd5;
     width: toRem(550);
     height: toRem(550);
-    height: 550px;
     background: url('./../../assets/login/login_bg_1.png');
+    background-size: cover;
     padding: toRem(40);
     vertical-align: middle;
     font-size: toRem(25);
