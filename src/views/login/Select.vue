@@ -1,0 +1,151 @@
+/** 系统选择 */
+<template>
+  <div class='select'>
+    <div class="header">
+      <a href="login.html">
+        <div class="home_btn"></div>
+      </a>
+      <img
+        class='select_logo'
+        src="./../../assets/login/logo.png"
+        alt=""
+      >
+      <span class='select_title'>请选择您要登录的系统</span>
+      <img
+        class='select_sci'
+        src="./../../assets/login/sci.gif"
+        alt=""
+      >
+    </div>
+    <div class='select_content'>
+      <span class='select_list'>
+        <span class='list_img1 list_img'></span>
+        <span class='list_name'>聊天室</span>
+      </span>
+      <span class='select_list'>
+        <span class='list_img2 list_img'></span>
+        <span class='list_name'>管理系统</span>
+      </span>
+      <span class='select_list'>
+        <span class='list_img3 list_img'></span>
+        <span class='list_name'>大屏展示</span>
+      </span>
+    </div>
+    <div class='select_star'>
+      <!--流星-->
+      <div class="liuxing liuxing1 liuxingFla"></div>
+      <div class="liuxing liuxing2 liuxingFla2"></div>
+      <div class="liuxing liuxing3 liuxingFla3"></div>
+      <div class="liuxing liuxing4 liuxingFla4"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Select'
+}
+</script>
+
+<style scoped lang='scss'>
+@import '../../styles/rem.scss';
+@import '../../styles/login/login';
+.select {
+  width: 100%;
+  height: 100vh;
+  background: url('./../../assets/login/bg_1.jpg');
+  background-size: cover;
+  .header {
+    width: 100%;
+    height: 100px;
+    padding-left: 40px;
+    line-height: 100px;
+    background: rgba(0, 0, 0, 0.3);
+    .home_btn {
+      display: inline-block;
+      width: 74px;
+      height: 74px;
+      background: url('./../../assets/login/icon.png') no-repeat center center;
+      background-size: 45% 45%;
+      border: 1px solid #102262;
+      border-radius: 5px;
+      vertical-align: middle;
+    }
+    .select_logo {
+      width: 100px;
+      margin: 10px 10px;
+      vertical-align: top;
+    }
+    .select_title {
+      display: inline-block;
+      font-size: toRem(30);
+      color: #fff;
+      letter-spacing: 3px;
+    }
+    .select_sci {
+      width: 100px;
+      float: right;
+    }
+  }
+  .select_content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .select_list {
+      display: inline-block;
+      width: 250px;
+      margin: 0 30px;
+      text-align: center;
+      animation: list_move 0.5s;
+      animation-timing-function: linear;
+      .list_img {
+        display: inline-block;
+        width: 250px;
+        height: 220px;
+        cursor: pointer;
+      }
+      .list_name {
+        display: inline-block;
+        width: 250px;
+        margin-top: 20px;
+        color: #00baf1;
+        letter-spacing: 3px;
+      }
+      .list_img1 {
+        background: url('./../../assets/login/fn_1.png');
+        background-size: cover;
+      }
+      .list_img1:hover {
+        background: url('./../../assets/login/fn_1_h.png');
+        background-size: cover;
+      }
+      .list_img2 {
+        background: url('./../../assets/login/fn_2.png');
+        background-size: cover;
+      }
+      .list_img2:hover {
+        background: url('./../../assets/login/fn_2_h.png');
+        background-size: cover;
+      }
+      .list_img3 {
+        background: url('./../../assets/login/fn_3.png');
+        background-size: cover;
+      }
+      .list_img3:hover {
+        background: url('./../../assets/login/fn_3_h.png');
+        background-size: cover;
+      }
+    }
+    @keyframes list_move {
+      0% {
+        margin-top: 0px;
+      }
+      100% {
+        margin-top: 100px;
+      }
+    }
+  }
+}
+</style>

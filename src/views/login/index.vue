@@ -4,53 +4,59 @@
     <div class='login-content'>
       <div class='left-container'>
         <div class='login-left'>
-          <div class='login-title'>
-            欢迎您的登录
-          </div>
-          <el-form
-            :model="form"
-            ref="form"
-            :rules='rules'
-            class="login_form"
-          >
-            <el-form-item
-              label=""
-              prop="user_name"
-              class='user_name'
-              :rules="[
+          <div class='login_show'>
+            <div class='login-title'>
+              欢迎您的登录
+            </div>
+            <el-form
+              :model="form"
+              ref="form"
+              :rules='rules'
+              class="login_form"
+            >
+              <el-form-item
+                label=""
+                prop="user_name"
+                class='user_name'
+                :rules="[
           {required:true,message:'请输入用户名',trigger:'blur'}
         ]"
-            >
-              <el-input
-                type="text"
-                v-model.number="form.user_name"
-                :maxlength='5'
-                clearable
-                placeholder='用户名'
-              ></el-input>
-            </el-form-item>
-            <el-form-item
-              prop="user_pwd"
-              :rules="[
+              >
+                <el-input
+                  type="text"
+                  v-model.number="form.user_name"
+                  :maxlength='5'
+                  clearable
+                  placeholder='用户名'
+                ></el-input>
+              </el-form-item>
+              <el-form-item
+                prop="user_pwd"
+                :rules="[
           {required:true,message:'请输入密码'}
         ]"
-            >
-              <el-input
-                type="password"
-                v-model.number="form.user_pwd"
-                :maxlength='11'
-                placeholder='密码'
-                clearable
-              ></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                type="primary"
-                class='submit'
-                @click="submitForm('form')"
-              >登录</el-button>
-            </el-form-item>
-          </el-form>
+              >
+                <el-input
+                  type="password"
+                  v-model.number="form.user_pwd"
+                  :maxlength='11'
+                  placeholder='密码'
+                  clearable
+                ></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button
+                  type="primary"
+                  class='submit'
+                  @click="submitForm('form')"
+                >登录</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div class="login_success">
+            <span class="i-green">认证成功</span>
+            <p>正在进入系统...</p>
+          </div>
         </div>
       </div>
       <div class='login-right'>
@@ -59,7 +65,7 @@
         <div class="liuxing liuxing2 liuxingFla2"></div>
         <div class="liuxing liuxing3 liuxingFla3"></div>
         <div class="liuxing liuxing4 liuxingFla4"></div>
-        控制系统
+        中控系统
       </div>
     </div>
 
@@ -85,18 +91,34 @@ export default {
         user_name: '',
         user_pwd: ''
       },
-      rules: {}
+      rules: {},
+      login_success: false
     }
   },
   methods: {
     submitForm (formName) {
+      const that = this
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // alert('submit!')
           const _login = document.getElementsByClassName('login-left')[0]
           const _authent = document.getElementsByClassName('authent')[0]
+          const _loginShow = document.getElementsByClassName('login_show')[0]
+          const _loginSuccess = document.getElementsByClassName('login_success')[0]
           _login.classList.add('login_left_leave')
           _authent.classList.add('authent_leave')
+          setTimeout(() => {
+            _login.classList.remove('login_left_leave')
+            _login.classList.add('login_left_remove')
+            _loginShow.style.display = 'none'
+            _loginSuccess.style.display = 'inline-block'
+            _authent.classList.remove('authent_leave')
+          }, 3000)
+          setTimeout(() => {
+            that.$router.push({
+              path: 'Select'
+            })
+          }, 4000)
         } else {
           console.log('error submit!!')
           return false
@@ -122,13 +144,13 @@ export default {
     height: toRem(40);
   }
   .login-content {
-    // box-shadow: 0 0 toRem(10) #575b5e;
     z-index: 2;
   }
   .left-container {
     display: inline-block;
     vertical-align: top;
   }
+  // 认证中样式及动画
   .authent {
     background: #35394a;
     display: none;
@@ -143,6 +165,7 @@ export default {
     z-index: 2;
     margin-left: toRem(-800);
   }
+  // 认证中动画
   .authent_leave {
     display: inline-block;
     animation: authent_leaves 0.5s;
@@ -157,6 +180,7 @@ export default {
       margin-left: toRem(-400);
     }
   }
+  // 左侧登录样式及动画
   .login-left {
     display: inline-block;
     width: toRem(400);
@@ -183,9 +207,9 @@ export default {
       background: #1e9fff;
     }
   }
-
+  // 登录左侧动画
   .login_left_leave {
-    animation: login_leave 1.5s;
+    animation: login_leave 1s;
     animation-timing-function: linear;
     animation-fill-mode: forwards;
     opacity: 0.6 !important;
@@ -207,6 +231,39 @@ export default {
       transform: scale(0.8, 0.5);
     }
   }
+  // 登录成功左侧回滑动画
+  .login_success {
+    display: none;
+    .i-green {
+      display: inline-block;
+      color: #00c851;
+      font-size: toRem(40);
+      letter-spacing: 3px;
+      margin-bottom: toRem(20);
+    }
+    p {
+      letter-spacing: 3px;
+      font-size: toRem(24);
+      color: #000;
+    }
+  }
+  .login_left_remove {
+    animation: login_remove 0.3s;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+  }
+  @keyframes login_remove {
+    0% {
+      left: -150px;
+      transform: scale(0.8, 0.5);
+    }
+    100% {
+      left: 0px;
+      top: 0px;
+      transform: scale(1);
+    }
+  }
+  // 登录右侧样式
   .login-right {
     display: inline-block;
     color: #407cd5;
