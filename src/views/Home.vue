@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     {{time | timestamp('yyyy-MM-dd')}}
-    {{value | checkStatus(status)}}
+    <div>
+      {{value | checkStatus(status)}}
+    </div>
   </div>
 </template>
 
@@ -12,6 +14,7 @@ export default {
     return {
       time: '',
       value: '1',
+      name: '3',
       status: [
         { value: 0, name: '未开始' },
         { value: 1, name: '已开始' },
@@ -20,8 +23,9 @@ export default {
       ]
     }
   },
-  mounted () {
+  created () {
     this.time = new Date()
+    this.value = 2
   }
 }
 </script>

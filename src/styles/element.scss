@@ -1,0 +1,14 @@
+@import 'rem.scss';
+// 登录页面修改element样式
+.login{
+  .el-input{
+    .el-input__inner {
+      border: 0px;
+      border-radius: 0px;
+      border-bottom: 1px solid #dcdfe6;
+    }
+    .el-input__inner:hover{
+      border-bottom: 1px solid blue;
+    }
+  }
+}
