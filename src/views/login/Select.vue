@@ -2,9 +2,10 @@
 <template>
   <div class='select'>
     <div class="header">
-      <a href="login.html">
-        <div class="home_btn"></div>
-      </a>
+      <router-link to="/">
+        <div class="home_btn">
+        </div>
+      </router-link>
       <img
         class='select_logo'
         src="./../../assets/login/logo.png"
@@ -18,19 +19,39 @@
       >
     </div>
     <div class='select_content'>
-      <span class='select_list'>
+      <span
+        v-for='(item,index) in systemList'
+        :key='index'
+        :class='["select_list",getClass("select_list", index)]'
+        @click='goSystem(item.value)'
+      >
+        <span :class='[getClass("list_img", index), "list_img"]'></span>
+        <span class='list_name'>{{ item.name }}</span>
+      </span>
+    </div>
+    <!-- <div class='select_content'>
+      <span
+        class='select_list select_list1'
+        @click='goSystem("Chat")'
+      >
         <span class='list_img1 list_img'></span>
         <span class='list_name'>聊天室</span>
       </span>
-      <span class='select_list'>
+      <span
+        class='select_list select_list2'
+        @click='goSystem("Administration")'
+      >
         <span class='list_img2 list_img'></span>
-        <span class='list_name'>管理系统</span>
+        <span class='list_name'>{{}}</span>
       </span>
-      <span class='select_list'>
+      <span
+        class='select_list select_list3'
+        @click='goSystem("Screen")'
+      >
         <span class='list_img3 list_img'></span>
         <span class='list_name'>大屏展示</span>
       </span>
-    </div>
+    </div> -->
     <div class='select_star'>
       <!--流星-->
       <div class="liuxing liuxing1 liuxingFla"></div>
@@ -43,7 +64,26 @@
 
 <script>
 export default {
-  name: 'Select'
+  name: 'Select',
+  data () {
+    return {
+      systemList: [
+        { value: 'ChatHome', name: '聊天室' },
+        { value: 'AdministrationHome', name: '管理系统' },
+        { value: 'ScreenHome', name: '大屏展示' }
+      ]
+    }
+  },
+  methods: {
+    getClass (value, index) {
+      return value + (index + 1)
+    },
+    goSystem (value) {
+      this.$router.push({
+        path: value
+      })
+    }
+  }
 }
 </script>
 
@@ -98,8 +138,7 @@ export default {
       width: 250px;
       margin: 0 30px;
       text-align: center;
-      animation: list_move 0.5s;
-      animation-timing-function: linear;
+      // animation-timing-function: linear;
       .list_img {
         display: inline-block;
         width: 250px;
@@ -138,12 +177,38 @@ export default {
         background-size: cover;
       }
     }
+    .select_list1 {
+      animation: list_move 4.5s infinite linear; //name名 周期时间 循环运用 运动曲线解决关键帧卡顿问题
+      // animation-iteration-count:'',//规定动画应该播放的次数。
+      // animation-direction:'',//规定是否应该轮流反向播放动画
+      // animation-name:'list_move',//规定需要绑定到选择器的 keyframe 名称
+      // animation-duration:'2.5',//规定完成动画所花费的时间，以秒或毫秒计。
+      // animation-delay: 0.5s; //规定在动画开始之前的延迟。
+      // animation-timing-function:'linear',//规定动画的速度曲线。
+    }
+    .select_list2 {
+      animation: list_move 4.5s infinite linear;
+      animation-delay: 0.5s; //规定在动画开始之前的延迟。
+    }
+    .select_list3 {
+      animation: list_move 4.5s infinite linear;
+      animation-delay: 1s; //规定在动画开始之前的延迟。
+    }
     @keyframes list_move {
       0% {
         margin-top: 0px;
       }
-      100% {
+      25% {
         margin-top: 100px;
+      }
+      50% {
+        margin-top: 0px;
+      }
+      75% {
+        margin-top: -100px;
+      }
+      100% {
+        margin-top: 0px;
       }
     }
   }

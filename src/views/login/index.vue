@@ -84,7 +84,7 @@
 
 <script>
 export default {
-  name: 'Login',
+  name: 'Index',
   data () {
     return {
       form: {

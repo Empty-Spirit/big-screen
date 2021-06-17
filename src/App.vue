@@ -4,6 +4,13 @@
   </div>
 </template>
 
+<script>
+import './common/net.config'
+export default {
+  name: 'App'
+}
+</script>
+
 <style lang="scss">
 @import './styles/rem.scss';
 #app {

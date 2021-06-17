@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-// import Select from '../views/Select.vue'
+import Login from '../views/login/Index.vue'
+import ChatHome from '../views/chat/home/Index.vue'
+import AdministrationHome from '../views/administration/home/Index.vue'
+import SCreenHome from '../views/screen/home/Index.vue'
+import Select from '../views/login/Select.vue'
 
 Vue.use(VueRouter)
 
@@ -9,20 +13,28 @@ const routes = [
   {
     path: '/',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login/Index.vue')
+    component: Login
   }, {
     path: '/Select',
     name: 'Select',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login/Select.vue')
+    component: Select
+    // component: () => import(/* webpackChunkName: "about" */ '../views/login/Select.vue')
+  }, {
+    path: '/ChatHome',
+    name: 'ChatHome',
+    component: ChatHome
+  }, {
+    path: '/AdministrationHome',
+    name: 'AdministrationHome',
+    component: AdministrationHome
+  }, {
+    path: '/SCreenHome',
+    name: 'SCreenHome',
+    component: SCreenHome
   }, {
     path: '/Home',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
   }
 ]
 
