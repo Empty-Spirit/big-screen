@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import './common/net.config'
+import './common/net_config'
 export default {
   name: 'App'
 }
