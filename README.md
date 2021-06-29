@@ -1,9 +1,9 @@
-# big-screen
+# 系统管理
 
 ## Project setup
 
 ```
-yarn
+yarn install
 ```
 
 ### Compiles and hot-reloads for development

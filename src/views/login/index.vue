@@ -1,55 +1,46 @@
-/** 登录页 */
 <template>
-  <div class='login'>
-    <div class='login-content'>
-      <div class='left-container'>
-        <div class='login-left'>
-          <div class='login_show'>
-            <div class='login-title'>
-              欢迎您的登录
-            </div>
-            <el-form
-              :model="form"
-              ref="form"
-              :rules='rules'
-              class="login_form"
-            >
+  <div class="login">
+    <div class="login-content">
+      <div class="left-container">
+        <div class="login-left">
+          <div class="login_show">
+            <div class="login-title">欢迎您的登录</div>
+            <el-form :model="form" ref="ruleForm" class="login_form">
               <el-form-item
                 label=""
                 prop="user_name"
-                class='user_name'
+                class="user_name"
                 :rules="[
-          {required:true,message:'请输入用户名',trigger:'blur'}
-        ]"
+                  { required: true, message: '请输入用户名', trigger: 'blur' },
+                ]"
               >
                 <el-input
                   type="text"
-                  v-model.number="form.user_name"
-                  :maxlength='5'
+                  v-model="form.user_name"
+                  :maxlength="5"
                   clearable
-                  placeholder='用户名'
+                  placeholder="用户名"
                 ></el-input>
               </el-form-item>
               <el-form-item
                 prop="user_pwd"
-                :rules="[
-          {required:true,message:'请输入密码'}
-        ]"
+                :rules="[{ required: true, message: '请输入密码' }]"
               >
                 <el-input
                   type="password"
-                  v-model.number="form.user_pwd"
-                  :maxlength='11'
-                  placeholder='密码'
+                  v-model="form.user_pwd"
+                  :maxlength="11"
+                  placeholder="密码"
                   clearable
                 ></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button
                   type="primary"
-                  class='submit'
-                  @click="submitForm('form')"
-                >登录</el-button>
+                  class="submit"
+                  @click.prevent="submitForm('form')"
+                  >登录</el-button
+                >
               </el-form-item>
             </el-form>
           </div>
@@ -59,7 +50,7 @@
           </div>
         </div>
       </div>
-      <div class='login-right'>
+      <div class="login-right">
         <!--流星-->
         <div class="liuxing liuxing1 liuxingFla"></div>
         <div class="liuxing liuxing2 liuxingFla2"></div>
@@ -71,67 +62,89 @@
 
     <!-- 认证中 -->
     <div class="authent">
-      <img src="./../../assets/login/puff.svg">
+      <img src="./../../assets/login/puff.svg" />
       <p>认证中...</p>
     </div>
-    <img
-      class='login_footer'
-      src="./../../assets/login/footer_bg.png"
-      alt=""
-    >
+    <img class="login_footer" src="./../../assets/login/footer_bg.png" alt="" />
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Index',
-  data () {
-    return {
-      form: {
-        user_name: '',
-        user_pwd: ''
-      },
-      rules: {},
-      login_success: false
+<script lang="ts">
+import {
+  defineComponent,
+  toRefs,
+  reactive,
+  ref,
+  onBeforeMount,
+  getCurrentInstance,
+} from "vue";
+import { useRouter } from "vue-router";
+
+export default defineComponent({
+  name: "Login",
+  setup(props, ctx) {
+    let that: any;
+    let router = useRouter();
+    onBeforeMount(() => {
+      that = getCurrentInstance(); //获取组件实例
+    });
+    // 声明表单类型
+    interface initForm {
+      user_name: string;
+      user_pwd: string;
     }
-  },
-  methods: {
-    submitForm (formName) {
-      const that = this
-      this.$refs[formName].validate((valid) => {
+    // 表单字段
+    const form: initForm = reactive({
+      user_name: "",
+      user_pwd: "",
+    });
+    const rules = ref({});
+    const login_success = false;
+
+    let submitForm = (formName: string) => {
+      that.refs.ruleForm.validate((valid: boolean) => {
+        console.log(valid);
         if (valid) {
-          // alert('submit!')
-          const _login = document.getElementsByClassName('login-left')[0]
-          const _authent = document.getElementsByClassName('authent')[0]
-          const _loginShow = document.getElementsByClassName('login_show')[0]
-          const _loginSuccess = document.getElementsByClassName('login_success')[0]
-          _login.classList.add('login_left_leave')
-          _authent.classList.add('authent_leave')
+          const _login = document.getElementsByClassName("login-left")[0];
+          const _authent = document.getElementsByClassName("authent")[0];
+          const _loginShow = document.getElementsByClassName(
+            "login_show"
+          )[0] as HTMLElement;
+          const _loginSuccess = document.getElementsByClassName(
+            "login_success"
+          )[0] as HTMLElement;
+          _login.classList.add("login_left_leave");
+          _authent.classList.add("authent_leave");
           setTimeout(() => {
-            _login.classList.remove('login_left_leave')
-            _login.classList.add('login_left_remove')
-            _loginShow.style.display = 'none'
-            _loginSuccess.style.display = 'inline-block'
-            _authent.classList.remove('authent_leave')
-          }, 3000)
+            _login.classList.remove("login_left_leave");
+            _login.classList.add("login_left_remove");
+            _loginShow.style.display = "none";
+            _loginSuccess.style.display = "inline-block";
+            _authent.classList.remove("authent_leave");
+          }, 3000);
           setTimeout(() => {
-            that.$router.push({
-              path: 'Select'
-            })
-          }, 4000)
+            router.push({
+              path: "Select",
+            });
+          }, 4000);
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
-    }
-  }
-}
+      });
+    };
+    return {
+      form,
+      submitForm,
+      rules,
+      login_success,
+    };
+  },
+});
 </script>
 
-<style lang='scss' scoped>
-@import '../../styles/rem.scss';
-@import './../../styles/login/login';
+<style lang="less" scoped>
+@import url("./../../styles/login/login");
 .login {
   width: 100%;
   height: 100vh;
@@ -140,8 +153,8 @@ export default {
   align-items: center;
   justify-content: center;
   .el-input {
-    width: toRem(320);
-    height: toRem(40);
+    width: 320px;
+    height: 40px;
   }
   .login-content {
     z-index: 2;
@@ -155,7 +168,7 @@ export default {
     background: #35394a;
     display: none;
     position: fixed;
-    width: toRem(200);
+    width: 200px;
     color: white;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -163,7 +176,7 @@ export default {
     padding: 20px 0;
     height: 105px;
     z-index: 2;
-    margin-left: toRem(-800);
+    margin-left: -800px;
   }
   // 认证中动画
   .authent_leave {
@@ -174,34 +187,34 @@ export default {
   }
   @keyframes authent_leaves {
     0% {
-      margin-left: toRem(-800);
+      margin-left: -800px;
     }
     100% {
-      margin-left: toRem(-400);
+      margin-left: -400px;
     }
   }
   // 左侧登录样式及动画
   .login-left {
     display: inline-block;
-    width: toRem(400);
-    height: toRem(550);
+    width: 400px;
+    height: 550px;
     background: #fff;
-    padding: toRem(80) toRem(40);
+    padding: 40px 40px;
     position: relative;
     .login-title {
       color: #407cd5;
-      margin-bottom: toRem(70);
-      font-size: toRem(30);
+      margin-bottom: 70px;
+      font-size: 30px;
     }
     .user_name {
-      margin-bottom: toRem(45);
+      margin-bottom: 45px;
     }
     .el-button--primary {
-      width: toRem(320);
-      height: toRem(45);
+      width: 320px;
+      height: 45px;
       border-radius: 2px;
       background: #407cd5;
-      margin-top: toRem(80);
+      margin-top: 80px;
     }
     .el-button--primary:hover {
       background: #1e9fff;
@@ -237,13 +250,13 @@ export default {
     .i-green {
       display: inline-block;
       color: #00c851;
-      font-size: toRem(40);
+      font-size: 40px;
       letter-spacing: 3px;
-      margin-bottom: toRem(20);
+      margin-bottom: 20px;
     }
     p {
       letter-spacing: 3px;
-      font-size: toRem(24);
+      font-size: 24px;
       color: #000;
     }
   }
@@ -267,13 +280,13 @@ export default {
   .login-right {
     display: inline-block;
     color: #407cd5;
-    width: toRem(550);
-    height: toRem(550);
-    background: url('./../../assets/login/login_bg_1.png');
+    width: 550px;
+    height: 550px;
+    background: url("./../../assets/login/login_bg_1.png");
     background-size: cover;
-    padding: toRem(40);
+    padding: 40px;
     vertical-align: middle;
-    font-size: toRem(25);
+    font-size: 25px;
   }
   .login_footer {
     position: absolute;

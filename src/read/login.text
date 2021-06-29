@@ -1,6 +1,0 @@
-## login/登录
-
-form:{
-user_name:'',
-user_pwd:'',
-}

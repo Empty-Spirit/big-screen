@@ -1,21 +1,10 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <router-view />
 </template>
 
-<script>
-import './common/net_config'
-export default {
-  name: 'App'
-}
-</script>
-
-<style lang="scss">
-@import './styles/rem.scss';
+<style lang="less">
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  font-size: toRem(18);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
