@@ -101,7 +101,7 @@ export default defineComponent({
     const rules = ref({});
     const login_success = false;
 
-    let submitForm = (formName: string) => {
+    let submitForm = () => {
       that.refs.ruleForm.validate((valid: boolean) => {
         console.log(valid);
         if (valid) {
@@ -113,8 +113,11 @@ export default defineComponent({
           const _loginSuccess = document.getElementsByClassName(
             "login_success"
           )[0] as HTMLElement;
+
           _login.classList.add("login_left_leave");
           _authent.classList.add("authent_leave");
+
+          // 显示进入进入系统栏
           setTimeout(() => {
             _login.classList.remove("login_left_leave");
             _login.classList.add("login_left_remove");
@@ -122,6 +125,8 @@ export default defineComponent({
             _loginSuccess.style.display = "inline-block";
             _authent.classList.remove("authent_leave");
           }, 3000);
+
+          // 页面跳转
           setTimeout(() => {
             router.push({
               path: "Select",

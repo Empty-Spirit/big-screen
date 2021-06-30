@@ -14,6 +14,13 @@ const routes: Array<RouteRecordRaw> = [
       // 按需引入，如果没有访问，则不会加载
       import(/* webpackChunkName: "about" */ "../views/login/Select.vue"),
   },
+  {
+    path: "/ScreenHome",
+    name: "ScreenHome",
+    component: () =>
+      // 按需引入，如果没有访问，则不会加载
+      import(/* webpackChunkName: "about" */ "../views/screen/home/Index.vue"),
+  },
 ];
 
 const router = createRouter({
